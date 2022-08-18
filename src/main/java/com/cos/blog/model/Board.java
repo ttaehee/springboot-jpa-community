@@ -49,8 +49,7 @@ public class Board {
 	
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
 	//Default : FetchType.LAZY
-	@JoinColumn(name="userId")
-	private List<Reply> reply;
+	private List<Reply> replys;
 	
 	@CreationTimestamp
 	private Timestamp createDate;
