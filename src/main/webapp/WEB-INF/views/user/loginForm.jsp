@@ -4,7 +4,7 @@
 
 <div class="container">
 
-	<form action="/action_page.php">
+	<form>
 	
 		<div class="form-group">
 			<label for="username">Username</label> <input type="text" class="form-control" placeholder="Enter username" id="username">
@@ -19,9 +19,37 @@
 			</label>
 		</div>
 		
-		<button type="submit" class="btn btn-primary">로그인</button>
+		<button id="btn-login" class="btn btn-primary" onClick="login()">로그인</button>
+		
 	</form>
 
+
 </div>
+
+<script>
+
+function login(){
+		
+	let data = {
+			username:$("#username").val(),
+			password:$("#password").val()
+	}
+
+	$.ajax({
+		type:"POST",
+		url:"/blog/api/user/login",
+		data:JSON.stringify(data), // http body 데이터
+		contentType:"application/json; charset=utf-8", // body데이터가 어떤 타입인지(MIME)
+		dataType:"json" // 응답
+	}).done(function(resp){
+		alert("로그인이 완료되었습니다.");
+		location.href="/blog";
+	}).fail(function(error){
+		alert(JSON.stringify(error));
+	});
+		
+}
+
+</script>
 
 <%@ include file="../layout/footer.jsp"%>
