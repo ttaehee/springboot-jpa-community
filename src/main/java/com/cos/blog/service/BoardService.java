@@ -25,6 +25,7 @@ public class BoardService {
 		boardRepository.save(board);
 	}
 	
+	@Transactional(readOnly = true)
 	public Board 글상세보기(int id) {
 		return boardRepository.findById(id)
 				.orElseThrow(()->{
@@ -32,8 +33,21 @@ public class BoardService {
 				});
 	}	
 
+	@Transactional(readOnly = true)
 	public Page<Board> 글목록(Pageable pageable) {
 		return boardRepository.findAll(pageable);
+	}
+	
+	@Transactional
+	public void 글삭제하기(int id, User user) {
+		Board board = boardRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("글 찾기 실패 : 해당 글이 존재하지 않습니다.");
+        });
+
+        if (board.getUser().getId() != user.getId()) {
+            throw new IllegalStateException("글 삭제 실패 : 해당 글을 삭제할 권한이 없습니다.");
+        }
+        boardRepository.delete(board);
 	}
 	
 }
