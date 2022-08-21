@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cos.blog.model.User;
 
+import lombok.Getter;
+
+@Getter
 public class PrincipalDetail implements UserDetails{
 
 	private User user; // 콤포지션(객체를 품고있음)

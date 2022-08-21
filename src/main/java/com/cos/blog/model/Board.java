@@ -39,7 +39,6 @@ public class Board {
 	@Lob // 대용량데이터
 	private String content;
 	
-	@ColumnDefault("0")
 	private int count; // 조회수
 	
 	@ManyToOne
