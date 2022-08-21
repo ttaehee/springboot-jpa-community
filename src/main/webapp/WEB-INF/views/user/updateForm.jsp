@@ -4,10 +4,11 @@
 
 <div class="container">
 	<form>
+		<input type="hidden" id="id" value="${principal.user.id}"/>
 	
 		<div class="form-group">
 			<label for="username">Username</label> 
-			<input type="text" class="form-control" placeholder="Enter username" id="username">
+			<input type="text" value="${principal.user.username}" class="form-control" placeholder="Enter username" id="username" readonly>
 		</div>
 		
 		<div class="form-group">
@@ -17,33 +18,34 @@
 		
 		<div class="form-group">
 			<label for="email">Email</label> 
-			<input type="email" class="form-control" placeholder="Enter email" id="email">
+			<input type="email" value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email">
 		</div>
 		
 	</form>
 	
-	<button id="btn-save" class="btn btn-primary" onClick="join()">회원가입완료</button>
+	<button id="btn-update" class="btn btn-primary" onClick="update()">회원수정완료</button>
 	
 </div>
 
 <script>
 
-function join(){
+function update(){
 
 	let data = {
+		id:$("#id").val(),
 		username:$("#username").val(),
 		password:$("#password").val(),
 		email:$("#email").val()
 	}
 	
 	$.ajax({
-		type:"POST",
-		url:"/auth/joinProc",
-		data:JSON.stringify(data), // http body 데이터
-		contentType:"application/json; charset=utf-8", // body데이터가 어떤 타입인지(MIME)
-		dataType:"json" // 응답
+		type:"PUT",
+		url:"/user",
+		data:JSON.stringify(data),
+		contentType:"application/json; charset=utf-8",
+		dataType:"json"
 	}).done(function(resp){
-		alert("회원가입이 완료되었습니다.");
+		alert("회원수정이 완료되었습니다.");
 		location.href="/";
 	}).fail(function(error){
 		alert(JSON.stringify(error));
