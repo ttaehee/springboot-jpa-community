@@ -5,8 +5,8 @@
 <div class="container">
 
 	<button class="btn btn-dark" onClick="history.back()">뒤로</button>
-	<button class="btn btn-secondary" onClick="update()">수정</button>
 	<c:if test="${board.user.id == principal.user.id}">
+		<a href="/board/${board.id}/updateForm">수정</a>
 	    <button class="btn btn-secondary" onClick="dele()">삭제</button>
 	</c:if> 
 	<br/><br/>
