@@ -41,6 +41,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
 	
+	private String oauth;
+	
 	@CreationTimestamp // 시간이 자동입력
 	private Timestamp createDate;
 
