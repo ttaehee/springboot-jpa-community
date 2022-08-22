@@ -19,7 +19,7 @@ import com.cos.blog.config.auth.PrincipalDetailService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) 
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
-	
+
 	@Autowired
 	private PrincipalDetailService principalDetailService;
 		
@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.config.auth.PrincipalDetail;
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.service.BoardService;
 
 @RestController
@@ -25,10 +27,10 @@ public class BoardApiController {
 	private BoardService boardService;
 
 	@PostMapping("/api/board")
-	public ResponseDto<Integer> save(
+	public ResponseEntity<String> save(
 			@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
 		boardService.글쓰기(board, principal.getUser());
-		return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+		return new ResponseEntity<>("댓글쓰기성공", HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/api/board/{id}")
@@ -43,6 +45,14 @@ public class BoardApiController {
 			@PathVariable int id, @AuthenticationPrincipal PrincipalDetail principal) {
 		boardService.글삭제하기(id, principal.getUser());
 		return  new ResponseEntity<>("수정성공", HttpStatus.OK);
+	}
+	
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(
+			@PathVariable int boardId, @RequestBody ReplySaveRequestDto replySaveRequestDto) {
+
+		boardService.댓글쓰기(replySaveRequestDto);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); 
 	}
 	
 }
