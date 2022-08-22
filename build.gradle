@@ -35,6 +35,8 @@ dependencies {
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	// Security 태그 라이브러리		
 	implementation 'org.springframework.security:spring-security-taglibs'
+	
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
 tasks.named('test') {

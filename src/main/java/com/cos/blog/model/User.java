@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 //@DynamicInsert insert시 null인 필드 제외해줌
-@Entity // User 클래스가 MySQL에 테이블이 생성됨
+@Entity
 public class User {
 	
 	@Id //primary key
@@ -37,11 +37,8 @@ public class User {
 	
 	@Column(nullable = false, length = 50)
 	private String email;
-	
-	//@ColumnDefault("'user'")
-	//private String role;
-	
-	@Enumerated(EnumType.STRING) // DB는 RoleType이 없으니까 String 알려주기
+
+	@Enumerated(EnumType.STRING)
 	private RoleType role;
 	
 	@CreationTimestamp // 시간이 자동입력
