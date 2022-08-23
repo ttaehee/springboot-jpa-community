@@ -1,5 +1,6 @@
 package com.cos.blog.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -32,8 +33,10 @@ public class UserController {
 	@Value("${taehee.key}")
 	private String key;
 	
-	private final AuthenticationManager authenticationManager;
 	private final UserService userService;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
 	
 	@GetMapping("/auth/joinForm")
 	public String joinForm() {

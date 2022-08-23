@@ -29,8 +29,8 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int id;
 	
-	@Column(nullable = false, length = 30)
-	private String username; //아이디
+	@Column(nullable = false, length = 30, unique = true)
+	private String username;
 	  
 	@Column(nullable = false, length = 100)
 	private String password;
@@ -43,7 +43,7 @@ public class User {
 	
 	private String oauth;
 	
-	@CreationTimestamp // 시간이 자동입력
+	@CreationTimestamp
 	private Timestamp createDate;
 
 }
