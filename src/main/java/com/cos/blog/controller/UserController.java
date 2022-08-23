@@ -1,6 +1,5 @@
 package com.cos.blog.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,17 +23,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
 	@Value("${taehee.key}")
 	private String key;
 	
-	@Autowired
-	private AuthenticationManager authenticationManager;
-	
-	@Autowired
-	private UserService userService;
+	private final AuthenticationManager authenticationManager;
+	private final UserService userService;
 	
 	@GetMapping("/auth/joinForm")
 	public String joinForm() {

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.ReplyRepository;
@@ -69,8 +70,18 @@ public class BoardService {
 	
 	@Transactional
 	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
-		int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
-		System.out.println("BoardService : "+result);
+		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
 	}
 	
+	@Transactional
+	public void 댓글삭제하기(int replyId, User user) {
+		Reply reply = replyRepository.findById(replyId).orElseThrow(() -> {
+            return new IllegalArgumentException("댓글 찾기 실패 : 해당 댓글이 존재하지 않습니다.");
+        });
+		
+		if (reply.getUser().getId() != user.getId()) {
+            throw new IllegalStateException("댓글 삭제 실패 : 해당 댓글을 삭제할 권한이 없습니다.");
+        }
+		replyRepository.deleteById(replyId);
+	}
 }

@@ -42,13 +42,15 @@
 	
 	<div class="card">
 		<div class="card-header">댓글 리스트</div>
-		<ul id="reply--box" class="list-group">
+		<ul id="reply-box" class="list-group">
 			<c:forEach var="reply" items="${board.replys}">
-				<li id="reply--1" class="list-group-item d-flex justify-content-between">
+				<li id="reply-${reply.id}" class="list-group-item d-flex justify-content-between">
 					<div> ${reply.content} </div>
 					<div class="d-flex">
 						<div>작성자 : ${reply.user.username} &nbsp;&nbsp;</div>
-						<button type="button" class="badge btn-primary">삭제</button>
+						<c:if test="${reply.user.id == principal.user.id}">
+							<button onClick="delReply(${board.id},${reply.id})" class="badge btn-primary">삭제</button>
+						</c:if>
 					</div>
 				</li>
 			</c:forEach>
@@ -65,10 +67,9 @@
 		
 		$.ajax({
 			type:"DELETE",
-			url:"/api/board/"+id,
-			dataType:"json"
+			url:"/api/board/"+id
 		}).done(function(resp){
-			alert("삭제가 완료되었습니다.");
+			alert("게시글 삭제가 완료되었습니다.");
 			location.href="/";
 		}).fail(function(error){
 			alert(JSON.stringify(error));
@@ -97,6 +98,19 @@
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		}); 
+	}
+	
+	function delReply(boardId, replyId){
+
+		$.ajax({
+			type:"DELETE",
+			url:"/api/board/"+boardId+"/reply/"+replyId
+		}).done(function(resp){
+			alert("댓글삭제가 완료되었습니다.");
+			location.href="/board/"+boardId;
+		}).fail(function(error){
+			alert(JSON.stringify(error));
+		});
 	}
 	
   

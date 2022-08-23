@@ -40,8 +40,7 @@
 			type:"POST",
 			url:"/api/board",
 			data:JSON.stringify(data),
-			contentType:"application/json; charset=utf-8",
-			dataType:"json"
+			contentType:"application/json; charset=utf-8"
 		}).done(function(resp){
 			alert("글쓰기가 완료되었습니다.");
 			location.href="/";
